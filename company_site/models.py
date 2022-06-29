@@ -1,5 +1,6 @@
-from company_site import db
+from company_site import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
 
 class User(db.Model):
@@ -11,23 +12,45 @@ class User(db.Model):
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     phone_number = db.Column(db.String(11), nullable=True)
-    is_admin = db.Column(db.Boolean, nullable=False, default=False)
-    is_active = db.Column(db.Boolean, nullable=False, default=True)
+    admin = db.Column(db.Boolean, nullable=False, default=False)
+    active = db.Column(db.Boolean, nullable=False, default=True)
 
-    def __init__(self, email, password, first_name, last_name, phone_number=None, is_admin=None, is_active=None):
+    def __init__(self, email, password, first_name, last_name, phone_number=None, admin=None, active=None):
         self.email = email
         self.password = generate_password_hash(password)
         self.first_name = first_name
         self.last_name = last_name
         if phone_number:
             self.phone_number = phone_number
-        if is_admin:
-            self.is_admin = is_admin
-        if is_active:
-            self.is_active = is_active
+        if admin:
+            self.admin = admin
+        if active:
+            self.active = active
+
+    # is_active, is_authenticated, is_anonymous, and get_id are required for flask-login
+    @property
+    def is_active(self):
+        return self.active
+
+    @property
+    def is_authenticated(self):
+        return self.active
+
+    @property
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        try:
+            return str(self.user_id)
+        except:
+            raise "user_id can't be accessed"
 
     def check_password(self, given_password):
         return check_password_hash(self.password, given_password)
+
+    def check_admin(self):
+        return self.admin
 
 
 class Jobcode(db.Model):
@@ -36,14 +59,14 @@ class Jobcode(db.Model):
     jobcode_id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(200), nullable=False, unique=True)
     location = db.Column(db.String(200), nullable=True)
-    is_active = db.Column(db.Boolean, nullable=False, default=True)
+    active = db.Column(db.Boolean, nullable=False, default=True)
 
-    def __init__(self, code, location=None, is_active=None):
+    def __init__(self, code, location=None, active=None):
         self.code = code
         if location:
             self.location = location
-        if is_active:
-            self.is_active = is_active
+        if active:
+            self.active = active
 
 
 class Timecard(db.Model):
@@ -56,15 +79,15 @@ class Timecard(db.Model):
         "jobcodes.jobcode_id"), nullable=False)
     date = db.Column(db.Date, nullable=False)
     hours = db.Column(db.Numeric(3, 2), nullable=False)
-    is_locked = db.Column(db.Boolean, nullable=False, default=False)
+    locked = db.Column(db.Boolean, nullable=False, default=False)
 
-    def __init__(self, user_id, jobcode_id, date, hours, is_locked=None):
+    def __init__(self, user_id, jobcode_id, date, hours, locked=None):
         self.user_id = user_id
         self.jobcode_id = jobcode_id
         self.date = date
         self.hours = hours
-        if is_locked:
-            self.is_locked = is_locked
+        if locked:
+            self.locked = locked
 
 
 class PTO(db.Model):
@@ -76,6 +99,11 @@ class PTO(db.Model):
     total = db.Column(db.Integer, nullable=False)
     remaining = db.Column(db.Integer, nullable=False)
     last_update = db.Column(db.DateTime)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
 
 
 if __name__ == "__main__":

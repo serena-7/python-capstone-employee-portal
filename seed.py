@@ -9,7 +9,7 @@ def load_users():
 
     for row in open("seed_data/users_data.txt"):
         row = row.rstrip()
-        user_id, email, password, first_name, last_name, phone_number, is_admin, is_active = row.split(
+        user_id, email, password, first_name, last_name, phone_number, admin, active = row.split(
             "|")
 
         user = User(email=email,
@@ -17,8 +17,8 @@ def load_users():
                     first_name=first_name,
                     last_name=last_name,
                     phone_number=phone_number,
-                    is_admin=bool(is_admin),
-                    is_active=bool(is_active)
+                    admin=bool(int(admin)),
+                    active=bool(int(active))
                     )
         # add user to session
         db.session.add(user)
@@ -33,11 +33,11 @@ def load_jobcodes():
 
     for row in open("seed_data/jobcodes_data.txt"):
         row = row.rstrip()
-        jobcode_id, code, location, is_active = row.split("|")
+        jobcode_id, code, location, active = row.split("|")
 
         jobcode = Jobcode(code=code,
                           location=location,
-                          is_active=bool(is_active)
+                          active=bool(int(active))
                           )
         db.session.add(jobcode)
 
@@ -51,14 +51,14 @@ def load_timecards():
 
     for row in open("seed_data/timecards_data.txt"):
         row = row.rstrip()
-        user_id, jobcode_id, date, hours, is_locked = row.split("|")
+        user_id, jobcode_id, date, hours, locked = row.split("|")
         date = datetime.strptime(date, "%m/%d/%Y").date()
 
         timecard = Timecard(user_id=user_id,
                             jobcode_id=jobcode_id,
                             date=date,
                             hours=hours,
-                            is_locked=bool(is_locked)
+                            locked=bool(int(locked))
                             )
         db.session.add(timecard)
 
@@ -94,7 +94,7 @@ def reset_database():
     # reset sequences to 1
     db.session.execute("ALTER SEQUENCE users_user_id_seq RESTART WITH 1; ALTER SEQUENCE jobcodes_jobcode_id_seq RESTART WITH 1; ALTER SEQUENCE timecards_timecard_id_seq RESTART WITH 1; ALTER SEQUENCE pto_pto_id_seq RESTART WITH 1;")
 
-    print("Database Tables Reset")
+    print("Database Reset")
 
 
 if __name__ == "__main__":
