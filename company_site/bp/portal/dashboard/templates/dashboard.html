@@ -1,18 +1,17 @@
 {% extends 'portal_base.html' %}
-
+{% set active_page = 'dashboard' %}
 {% block title %}Employee Dashboard{% endblock %}
 
 {% block content %}
-    <h1>Dashboard!</h1>
-    <div class="container">
+    <h1>Welcome to the Employee Portal</h1>
+    <!-- <h1>Dashboard!</h1>
         <h3>Employee Resources</h3>
         <a>Account</a>
         <br>
-        <a>Timecards</a>
-    </div>
+        <a href="{{ url_for('timecards.timecards', targ_date='current') }}">Timecards</a>
     {% if current_user.admin %}
-    <div class="container">
         <h3>Admin Resources</h3>
-    </div>
-    {% endif %}
+        <a>Manage Employees</a>
+        <a>Manage Job</a>
+    {% endif %} -->
 {% endblock %}

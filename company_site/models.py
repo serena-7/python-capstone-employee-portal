@@ -81,6 +81,11 @@ class Timecard(db.Model):
     hours = db.Column(db.Numeric(3, 2), nullable=False)
     locked = db.Column(db.Boolean, nullable=False, default=False)
 
+    user = db.relationship("User", backref=db.backref(
+        "timecards", order_by=timecard_id))
+    jobcode = db.relationship("Jobcode", backref=db.backref(
+        "timecards", order_by=timecard_id))
+
     def __init__(self, user_id, jobcode_id, date, hours, locked=None):
         self.user_id = user_id
         self.jobcode_id = jobcode_id

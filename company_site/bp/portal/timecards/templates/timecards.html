@@ -1,0 +1,87 @@
+{% extends 'portal_base.html' %}
+{% from '_error_messages.html' import error_messages %}
+{% set active_page = 'timecards' %}
+{% block title %}Employee Timecards{% endblock %}
+
+{% block content %}
+<div class="contianer">
+    <h1>Timecard Entry</h1>
+
+    <nav aria-label="Navigate Weeks">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="{{url_for('timecards.nav_view',targ_date=dates['sun'].strftime('%b-%d-%Y'),direction='prev')}}">&lt; Previous</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="{{url_for('timecards.nav_view',targ_date=dates['sun'].strftime('%b-%d-%Y'),direction='next')}}">Next &gt;</a>
+            </li>
+        </ul>
+    </nav>
+
+    <form method="POST">
+        {{ form.csrf_token }}
+        <table class="table table-sm table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    {% for d in dates %}
+                        <th class="text-center" scope="col">{{ dates[d].strftime('%b-%d-%Y') }}</th>
+                    {% endfor %}
+                    <th></th>
+                </tr>
+                <tr>
+                    <th class="text-center" scope="col">Jobcode</th>
+                    <th class="text-center" scope="col">Sunday</th>
+                    <th class="text-center" scope="col">Monday</th>
+                    <th class="text-center" scope="col">Tuesday</th>
+                    <th class="text-center" scope="col">Wednesday</th>
+                    <th class="text-center" scope="col">Thursday</th>
+                    <th class="text-center" scope="col">Friday</th>
+                    <th class="text-center" scope="col">Saturday</th>
+                    <th class="text-center" scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in form.timeset %}
+                {{ row.csrf_token }}
+                <tr>
+                    {% for field in row if field.widget.input_type != 'hidden' %}
+                        <td>
+                            {% if field.label.text == 'total' %}
+                                    {{ field(class="form-control-plaintext form-control-sm", readonly=True, style="text-align:center; font-weight: bold")}}
+                            {% else %}
+                                <div class="input-group mx-auto">
+                                    {{ field(class="form-control form-control-sm", style="text-align:center") }}
+                                </div>
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>    
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total</th>
+                    <th class="text-center">{{ "{:.2f}".format(totals['sun']) }}</th>
+                    <th class="text-center">{{ "{:.2f}".format(totals['mon']) }}</th>
+                    <th class="text-center">{{ "{:.2f}".format(totals['tue']) }}</th>
+                    <th class="text-center">{{ "{:.2f}".format(totals['wed']) }}</th>
+                    <th class="text-center">{{ "{:.2f}".format(totals['thr']) }}</th>
+                    <th class="text-center">{{ "{:.2f}".format(totals['fri']) }}</th>
+                    <th class="text-center">{{ "{:.2f}".format(totals['sat']) }}</th>
+                    <th class="text-center">{{ "{:.2f}".format(totals['total']) }}</th>
+                </tr>
+            </tfoot>
+        </table>
+        {{ error_messages(form.errors) }}
+        {% if is_locked %}
+            <p>This week is locked. Cannot Submit Changes.</p>
+        {% else %}
+            <div class="form-group text-center">
+                <a class="btn btn-secondary" role="button" href="{{ url_for('timecards.timecards', targ_date=dates['sun'].strftime('%b-%d-%Y')) }}">Clear Unsaved</a>
+                {{ form.submit(class="btn btn-primary")}}
+            </div>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}
