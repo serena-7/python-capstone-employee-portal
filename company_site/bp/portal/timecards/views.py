@@ -2,7 +2,6 @@ from company_site import db
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from datetime import datetime, date, timedelta
 from flask_login import current_user, login_required
-from collections import namedtuple
 
 from company_site.models import User, Jobcode, Timecard, PTO
 from company_site.bp.portal.timecards.forms import TimecardRowForm, TimecardSetForm, WEEKDAYS

@@ -1,14 +1,13 @@
 {% extends 'portal_base.html' %}
 {% from '_error_messages.html' import error_messages %}
-{% set active_page = 'timecards' %}
+{% set active_tab = 'timecards' %}
 {% block title %}Employee Timecards{% endblock %}
 
 {% block content %}
-<div class="contianer">
-    <h1>Timecard Entry</h1>
+    <h1 class="text-center">Timecard Entry</h1>
 
     <nav aria-label="Navigate Weeks">
-        <ul class="pagination justify-content-center">
+        <ul class="pagination justify-content-left">
             <li class="page-item">
                 <a class="page-link" href="{{url_for('timecards.nav_view',targ_date=dates['sun'].strftime('%b-%d-%Y'),direction='prev')}}">&lt; Previous</a>
             </li>
@@ -83,5 +82,4 @@
             </div>
         {% endif %}
     </form>
-</div>
 {% endblock %}

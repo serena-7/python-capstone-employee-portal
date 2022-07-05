@@ -11,7 +11,7 @@ class User(db.Model):
     password = db.Column(db.String(500), nullable=False)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
-    phone_number = db.Column(db.String(11), nullable=True)
+    phone_number = db.Column(db.String(10), nullable=True)
     admin = db.Column(db.Boolean, nullable=False, default=False)
     active = db.Column(db.Boolean, nullable=False, default=True)
 

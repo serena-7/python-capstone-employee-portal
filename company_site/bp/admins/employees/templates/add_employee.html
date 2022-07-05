@@ -1,0 +1,63 @@
+{% extends 'portal_base.html' %}
+{% set active_tab = 'manage_employees' %}
+{% from '_error_messages.html' import field_error_messages, error_messages %}
+{% block title %}Manage Employees{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Add New Employee</h1>
+    <form method="POST">
+        {{ form.csrf_token }}
+        {{ error_messages(form.errors) }}
+        <div class="form-group row justify-content-sm-center">
+            {{ form.first_name.label(class="col-sm-2 col-form-label") }}
+            <div class="col-sm-5">
+                {{ form.first_name(class="form-control") }}
+            </div>
+        </div>
+        {{ field_error_messages(form.first_name) }}
+        <div class="form-group row justify-content-sm-center">
+            {{ form.last_name.label(class="col-sm-2 col-form-label") }}
+            <div class="col-sm-5">
+                {{ form.last_name(class="form-control") }}
+            </div>
+        </div>
+        {{ field_error_messages(form.last_name) }}
+        <div class="form-group row justify-content-sm-center">
+            {{ form.email.label(class="col-sm-2 col-form-label") }}
+            <div class="col-sm-5">
+                {{ form.email(class="form-control") }}
+            </div>
+        </div>
+        {{ field_error_messages(form.email) }}
+        <div class="form-group row justify-content-sm-center">
+            {{ form.phone_number.label(class="col-sm-2 col-form-label") }}
+            <div class="col-sm-5">
+                {{ form.phone_number(class="form-control") }}
+            </div>
+        </div>
+        {{ field_error_messages(form.phone_number) }}
+        <div class="form-group row justify-content-sm-center">
+            {{ form.password.label(class="col-sm-2 col-form-label") }}
+            <div class="col-sm-5">
+                {{ form.password(class="form-control") }}
+            </div>
+        </div>
+        {{ field_error_messages(form.password) }}
+        <div class="form-group row justify-content-sm-center">
+            {{ form.conf_pass.label(class="col-sm-2 col-form-label") }}
+            <div class="col-sm-5">
+                {{ form.conf_pass(class="form-control") }}
+            </div>
+        </div>
+        {{ field_error_messages(form.conf_pass) }}
+        <div class="form-group row justify-content-sm-center">
+            {{ form.admin.label(class="form-check-label col-sm-2") }}
+            <div class="col-sm-5">
+                {{ form.admin(class="form-control-lg")}}
+            </div>
+        </div>
+        <div class="form-group col-md-12 text-center">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+{% endblock %}

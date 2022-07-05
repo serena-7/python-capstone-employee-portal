@@ -31,13 +31,13 @@
       <h3>Employee Portal</h3>
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link {{'active' if active_page == 'dashboard'}}"  href="{{ url_for('dashboard.dashboard') }}">Dashboard</a>
+          <a class="nav-link {{'active' if active_tab == 'dashboard'}}"  href="{{ url_for('dashboard.dashboard') }}">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{'active' if active_tab == 'timecards'}}" href="{{ url_for('timecards.timecards',targ_date='current') }}">Timecards</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Account</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{'active' if active_page == 'timecards'}}" href="{{ url_for('timecards.timecards',targ_date='current') }}">Timecards</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('user.logout') }}">Logout</a>
@@ -47,7 +47,7 @@
       {% if current_user.admin %} 
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link" href="#">Manage Employees</a>
+          <a class="nav-link {{'active' if active_tab == 'manage_employees'}}" href="{{ url_for('admin_emp.employees') }}">Manage Employees</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Manage Jobcodes</a>
