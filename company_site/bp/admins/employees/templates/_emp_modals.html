@@ -1,0 +1,95 @@
+{% macro activate_modal(user) %}
+<!-- Activate Modal -->
+<div class="modal fade" id="activateModal-{{user.user_id}}" tabindex="-1" role="dialog" aria-labelledby="activateModalLabel-{{user.user_id}}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="activateModalLabel-{{user.user_id}}">ACTIVATE {{user.last_name}}, {{user.first_name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you wan't to ACTIVATE this employee?<br>
+                Employee Name: {{user.last_name}}, {{user.first_name}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
+                <a role="button" class="btn btn-primary" href="{{ url_for('admin_emp.activate', user_id=user.user_id)}}">Yes, Activate</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro deactivate_modal(user) %}    
+<!-- Deactivate Modal -->
+<div class="modal fade" id="deactivateModal-{{user.user_id}}" tabindex="-1" role="dialog" aria-labelledby="deactivateModalLabel-{{user.user_id}}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deactivateModalLabel-{{user.user_id}}">DEACTIVATE {{user.last_name}}, {{user.first_name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you wan't to DEACTIVATE this employee?<br>
+                Employee Name: {{user.last_name}}, {{user.first_name}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
+                <a role="button" class="btn btn-primary" href="{{ url_for('admin_emp.deactivate', user_id=user.user_id)}}">Yes, Deactivate</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro invoke_modal(user) %}
+<!-- Invoke Admin Modal -->
+<div class="modal fade" id="invokeModal-{{user.user_id}}" tabindex="-1" role="dialog" aria-labelledby="invokeModalLabel-{{user.user_id}}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="invokeModalLabel-{{user.user_id}}">MAKE ADMIN: {{user.last_name}}, {{user.first_name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you wan't to give this employee ADMIN PRIVLEDGES?<br>
+                Employee Name: {{user.last_name}}, {{user.first_name}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
+                <a role="button" class="btn btn-primary" href="{{ url_for('admin_emp.invoke_admin', user_id=user.user_id)}}">Yes, Make Admin</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro revoke_modal(user) %}
+<!-- Revoke Admin Modal -->
+<div class="modal fade" id="revokeModal-{{user.user_id}}" tabindex="-1" role="dialog" aria-labelledby="revokeModalLabel-{{user.user_id}}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="revokeModalLabel-{{user.user_id}}">REMOVE ADMIN: {{user.last_name}}, {{user.first_name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you wan't to REMOVE this employee's ADMIN PRIVLEDGES?<br>
+                Employee Name: {{user.last_name}}, {{user.first_name}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
+                <a role="button" class="btn btn-primary" href="{{ url_for('admin_emp.revoke_admin', user_id=user.user_id)}}">Yes, Remove Admin</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}

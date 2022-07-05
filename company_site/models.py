@@ -52,6 +52,9 @@ class User(db.Model):
     def check_admin(self):
         return self.admin
 
+    def update_password(self, password):
+        self.password = generate_password_hash(password)
+
 
 class Jobcode(db.Model):
 

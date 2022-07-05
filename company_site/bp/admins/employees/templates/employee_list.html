@@ -1,6 +1,6 @@
 {% extends 'portal_base.html' %}
 {% set active_tab = 'manage_employees' %}
-
+{% from '_emp_modals.html' import activate_modal, deactivate_modal, invoke_modal, revoke_modal %}
 {% block title %}Manage Employees{% endblock %}
 
 {% block content %}
@@ -20,15 +20,17 @@
                             Options
                         </button>
                         <div class="dropdown-menu" aria-labelledby="Options-{{employee.user_id}}">
-                            <a class="dropdown-item" href="#">Change Password</a>
-                            <a class="dropdown-item" href="{{ url_for('admin_emp.deactivate',user_id=employee.user_id) }}">Deactivate</a>
-                            <a class="dropdown-item" href="#">Revoke Admin</a>
+                            <a class="dropdown-item" href="{{ url_for('admin_emp.change_password', user_id=employee.user_id) }}">Change Password</a>
+                            <a class="dropdown-item" href="#deactivateModal-{{employee.user_id}}" data-toggle="modal">Deactivate</a>
+                            <a class="dropdown-item" href="#revokeModal-{{employee.user_id}}" data-toggle="modal">Revoke Admin</a>
                         </div>
                     </div>
                 </div>
             </li>
-        {% endfor %}
-    </ul>
+            {{deactivate_modal(employee)}}
+            {{revoke_modal(employee)}}
+            {% endfor %}
+        </ul>
 
     <h4>Employees (Non Admin)</h4>
     <ul class="list-group">
@@ -36,20 +38,22 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 {{employee.last_name}}, {{employee.first_name}}
                 <div class="d-flex">
-                    <a class="btn btn-secondary" href="#" role="button">View Info</a>
+                    <a class="btn btn-secondary" href="{{ url_for('admin_emp.employee_info', user_id=employee.user_id) }}" role="button">View Info</a>
                     <p>&ThinSpace;</p>
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="Options-{{employee.user_id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Options
                         </button>
                         <div class="dropdown-menu" aria-labelledby="Options-{{employee.user_id}}">
-                            <a class="dropdown-item" href="#">Change Password</a>
-                            <a class="dropdown-item" href="{{ url_for('admin_emp.deactivate',user_id=employee.user_id) }}">Deactivate</a>
-                            <a class="dropdown-item" href="#">Make Admin</a>
+                            <a class="dropdown-item" href="{{ url_for('admin_emp.change_password', user_id=employee.user_id) }}">Change Password</a>
+                            <a class="dropdown-item" href="#deactivateModal-{{employee.user_id}}" data-toggle="modal">Deactivate</a>
+                            <a class="dropdown-item" href="#invokeModal-{{employee.user_id}}" data-toggle="modal">Make Admin</a>
                         </div>
                     </div>
                 </div>
             </li>
+            {{deactivate_modal(employee)}}
+            {{invoke_modal(employee)}}
         {% endfor %}
     </ul>
 
@@ -59,19 +63,20 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 {{employee.last_name}}, {{employee.first_name}}
                 <div class="d-flex">
-                    <a class="btn btn-secondary" href="#" role="button">View Info</a>
+                    <a class="btn btn-secondary" href="{{ url_for('admin_emp.employee_info', user_id=employee.user_id) }}" role="button">View Info</a>
                     <p>&ThinSpace;</p>
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="Options-{{employee.user_id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Options
                         </button>
                         <div class="dropdown-menu" aria-labelledby="Options-{{employee.user_id}}">
-                            <a class="dropdown-item" href="{{ url_for('admin_emp.activate',user_id=employee.user_id) }}">Reactivate</a>
+                            <a class="dropdown-item" href="#activateModal-{{employee.user_id}}" data-toggle="modal">Reactivate</a>
                         </div>
                     </div>
                 </div>
             </li>
-        {% endfor %}
+            {{activate_modal(employee)}}
+            {% endfor %}
     </ul>
 
 {% endblock %}

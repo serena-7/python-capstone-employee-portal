@@ -1,8 +1,107 @@
 {% extends 'portal_base.html' %}
 {% set active_tab = 'manage_employees' %}
-
-{% block title %}Employee Info{% endblock %}
+{% from '_emp_modals.html' import activate_modal, deactivate_modal, invoke_modal, revoke_modal %}
+{% block title %}Manage Employees{% endblock %}
 
 {% block content %}
-    <h1 class="text-center">Employee Information</h1>
+    <h1 class="text-center">Employee Information: {{employee.last_name}}, {{employee.first_name}}</h1>
+    <a class="btn btn-primary" role="button" href="{{url_for('admin_emp.change_password',user_id=employee.user_id)}}">Change Password</a>
+    <div class="row">
+        <div class="col-sm-2">
+            First Name:
+        </div>
+        <div class="col-sm-5">
+            <p>
+                {{employee.first_name}}
+            </p>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-secondary btn-block" role="button" href="{{url_for('admin_emp.edit_info', user_id=employee.user_id)}}">Edit</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Last Name:
+        </div>
+        <div class="col-sm-5">
+            <p>
+                {{employee.last_name}}
+            </p>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-secondary btn-block" role="button" href="{{url_for('admin_emp.edit_info', user_id=employee.user_id)}}">Edit</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Email:
+        </div>
+        <div class="col-sm-5">
+            <p>
+                {{employee.email}}
+            </p>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-secondary btn-block" role="button" href="{{url_for('admin_emp.change_email', user_id=employee.user_id)}}">Edit</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Phone Number:
+        </div>
+        <div class="col-sm-5">
+            {% if employee.phone_number %}
+                <p>{{employee.phone_number[:3]}}-{{employee.phone_number[3:6]}}-{{employee.phone_number[6:]}}</p>
+            {% else %}
+                <p class="text-danger">No Saved Phone Number</p>
+            {% endif %}
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-secondary btn-block" role="button" href="{{url_for('admin_emp.edit_info', user_id=employee.user_id)}}">Edit</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Employee Status:
+        </div>
+        {% if employee.active %}
+        <div class="col-sm-5">
+            <p class="text-success">Current Employee</p>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-secondary btn-block" role="button" href="#deactivateModal-{{employee.user_id}}" data-toggle="modal">Deactivate</a>
+        </div>
+        {% else %}
+        <div class="col-sm-5">
+            <p class="text-danger">Past Employee</p>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-secondary btn-block" role="button" href="#activateModal-{{employee.user_id}}" data-toggle="modal">Reactivate</a>
+        </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Admin Status
+        </div>
+        {% if employee.admin %}
+        <div class="col-sm-5">
+            <p class="text-success">Has Admin Privledges</p>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-secondary btn-block" role="button" href="#revokeModal-{{employee.user_id}}" data-toggle="modal">Revoke Admin</a>
+        </div>
+        {% else %}
+        <div class="col-sm-5">
+            <p class="text-danger">No Admin Privledges</p>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-secondary btn-block" role="button" href="#invokeModal-{{employee.user_id}}" data-toggle="modal">Make Admin</a>
+        </div>
+        {% endif %}
+    </div>
+    {{activate_modal(employee)}}
+    {{deactivate_modal(employee)}}
+    {{invoke_modal(employee)}}
+    {{revoke_modal(employee)}}
 {% endblock %}
