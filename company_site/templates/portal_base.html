@@ -50,7 +50,7 @@
           <a class="nav-link {{'active' if active_tab == 'manage_employees'}}" href="{{ url_for('admin_emp.employees') }}">Manage Employees</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Manage Jobcodes</a>
+          <a class="nav-link {{'active' if active_tab == 'manage_jobcodes'}}" href="{{ url_for('admin_jobcode.jobcodes')}}">Manage Jobcodes</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Manage Timecards</a>

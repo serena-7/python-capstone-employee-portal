@@ -1,0 +1,47 @@
+{% extends 'portal_base.html' %}
+{% set active_tab = 'manage_jobcodes' %}
+{% from '_jobcode_modals.html' import activate_modal, deactivate_modal%}
+{% block title %}Manage Jobcodes{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Manage Jobcodes</h1>
+    <a class="btn btn-primary" role="button" href="{{ url_for('admin_jobcode.add_jobcode') }}">Add New Jobcode</a>
+    <h2 class="text-center">Active Jobcodes</h2>
+    <ul class="list-group">
+        {% for jobcode in active %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex col-lg-4 justify-content-start">
+                    {{ jobcode.code }}
+                </div>
+                <div class="d-flex col-lg-5 justify-content-start">
+                    Location: {{ jobcode.location }}
+                </div>
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-secondary" role="button" href="{{url_for('admin_jobcode.edit_jobcode',jobcode_id=jobcode.jobcode_id)}}">Edit</a>
+                    <p>&ThinSpace;</p>
+                    <a class="btn btn-secondary" role="button" href="#deactivateModal-{{jobcode.jobcode_id}}" data-toggle="modal">Deactivate</a>
+                </div>
+            </li>
+            {{ deactivate_modal(jobcode) }}
+        {% endfor %}
+    </ul>
+    <h2 class="text-center">Inactive Jobcodes</h2>
+    <ul class="list-group">
+        {% for jobcode in inactive %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex col-lg-4 justify-content-start">
+                    {{ jobcode.code }}
+                </div>
+                <div class="d-flex col-lg-5 justify-content-start">
+                    Location: {{ jobcode.location }}
+                </div>
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-secondary" role="button" href="{{url_for('admin_jobcode.edit_jobcode',jobcode_id=jobcode.jobcode_id)}}">Edit</a>
+                    <p>&ThinSpace;</p>
+                    <a class="btn btn-secondary" role="button" href="#activateModal-{{jobcode.jobcode_id}}" data-toggle="modal">Reactivate</a>
+                </div>
+            </li>
+            {{ activate_modal(jobcode) }}
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% macro activate_modal(jobcode) %}
+<!-- Activate Modal -->
+<div class="modal fade" id="activateModal-{{jobcode.jobcode_id}}" tabindex="-1" role="dialog" aria-labelledby="activateModalLabel-{{jobcode.jobcode_id}}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="activateModalLabel-{{jobcode.jobcode_id}}">ACTIVATE {{jobcode.code}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you wan't to ACTIVATE this Jobcode?<br>
+                Jobcode Name: {{jobcode.code}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
+                <a role="button" class="btn btn-primary" href="{{ url_for('admin_jobcode.activate', jobcode_id=jobcode.jobcode_id)}}">Yes, Activate</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro deactivate_modal(jobcode) %}    
+<!-- Deactivate Modal -->
+<div class="modal fade" id="deactivateModal-{{jobcode.jobcode_id}}" tabindex="-1" role="dialog" aria-labelledby="deactivateModalLabel-{{jobcode.jobcode_id}}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deactivateModalLabel-{{jobcode.jobcode_id}}">DEACTIVATE {{jobcode.code}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you wan't to DEACTIVATE this Jobcode?<br>
+                Jobcode Name: {{jobcode.code}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
+                <a role="button" class="btn btn-primary" href="{{ url_for('admin_jobcode.deactivate', jobcode_id=jobcode.jobcode_id)}}">Yes, Deactivate</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}
