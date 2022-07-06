@@ -1,0 +1,64 @@
+{% extends 'portal_base.html' %}
+{% set active_tab = 'account' %}
+
+{% block title %}Employee Account{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Your Account</h1>
+    <br>
+    <div class="row justify-content-center">
+        <a class="btn btn-primary" role="button" href="{{url_for('user.change_phone')}}">Change Phone Number</a>
+        <p>&ThinSpace;</p>
+        <a class="btn btn-primary" role="button" href="{{url_for('user.change_email')}}">Change Email</a>
+        <p>&ThinSpace;</p>
+        <a class="btn btn-primary" role="button" href="{{url_for('user.change_password')}}">Change Password</a>
+    </div>
+    <br>
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-sm-2">
+            First Name:
+        </div>
+        <div class="col-sm-5">
+            <p>
+                {{current_user.first_name}}
+            </p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-2">
+            Last Name:
+        </div>
+        <div class="col-sm-5">
+            <p>
+                {{current_user.last_name}}
+            </p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-2">
+            Email:
+        </div>
+        <div class="col-sm-5">
+            <p>
+                {{current_user.email}}
+            </p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-2">
+            Phone Number:
+        </div>
+        <div class="col-sm-5">
+            {% if current_user.phone_number %}    
+            <p>
+                {{current_user.phone_number[:3]}}-{{current_user.phone_number[3:6]}}-{{current_user.phone_number[6:]}}
+            </p>
+            {% else %}
+            <p class="text-danger">
+                No Phone Number Saved
+            </p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

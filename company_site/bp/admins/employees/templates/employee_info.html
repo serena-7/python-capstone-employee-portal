@@ -5,8 +5,10 @@
 
 {% block content %}
     <h1 class="text-center">Employee Information: {{employee.last_name}}, {{employee.first_name}}</h1>
-    <a class="btn btn-primary" role="button" href="{{url_for('admin_emp.change_password',user_id=employee.user_id)}}">Change Password</a>
-    <div class="row">
+    <div class="row justify-content-center">
+        <a class="btn btn-primary" role="button" href="{{url_for('admin_emp.change_password',user_id=employee.user_id)}}">Change Password</a>
+    </div>
+    <div class="row justify-content-center">
         <div class="col-sm-2">
             First Name:
         </div>
@@ -19,7 +21,7 @@
             <a class="btn btn-secondary btn-block" role="button" href="{{url_for('admin_emp.edit_info', user_id=employee.user_id)}}">Edit</a>
         </div>
     </div>
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-sm-2">
             Last Name:
         </div>
@@ -32,7 +34,7 @@
             <a class="btn btn-secondary btn-block" role="button" href="{{url_for('admin_emp.edit_info', user_id=employee.user_id)}}">Edit</a>
         </div>
     </div>
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-sm-2">
             Email:
         </div>
@@ -45,7 +47,7 @@
             <a class="btn btn-secondary btn-block" role="button" href="{{url_for('admin_emp.change_email', user_id=employee.user_id)}}">Edit</a>
         </div>
     </div>
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-sm-2">
             Phone Number:
         </div>
@@ -60,7 +62,7 @@
             <a class="btn btn-secondary btn-block" role="button" href="{{url_for('admin_emp.edit_info', user_id=employee.user_id)}}">Edit</a>
         </div>
     </div>
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-sm-2">
             Employee Status:
         </div>
@@ -80,7 +82,7 @@
         </div>
         {% endif %}
     </div>
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-sm-2">
             Admin Status
         </div>

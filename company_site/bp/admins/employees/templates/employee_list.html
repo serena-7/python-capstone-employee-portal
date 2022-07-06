@@ -5,7 +5,9 @@
 
 {% block content %}
     <h1 class="text-center">Manage Employees</h1>
-    <a class="btn btn-primary" href="{{ url_for('admin_emp.add_employee') }}" role="button">Add New Employee</a>
+
+        <a class="btn btn-primary" href="{{ url_for('admin_emp.add_employee') }}" role="button">Add New Employee</a>
+
     <h2 class="text-center">Current Employees</h2>
     <h4>Employees With Admin Privledges</h4>
     <ul class="list-group">

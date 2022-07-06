@@ -1,0 +1,33 @@
+{% extends 'portal_base.html' %}
+{% set active_tab = 'account' %}
+{% from '_error_messages.html' import field_error_messages, error_messages %}
+{% block title %}Employee Account{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Change Your Phone Number</h1>
+    <form method="POST">
+        {{ form.csrf_token }}
+        <div class="row justify-content-sm-center">
+            <p class="col-sm-2">Previous Phone Number</p>
+            <div class="col-sm-5">
+                <p>{{current_user.phone_number[:3]}}-{{current_user.phone_number[3:6]}}-{{current_user.phone_number[6:]}}</p>
+            </div>
+        </div>
+        {{ error_messages(form.errors) }}
+        <div class="form-group row justify-content-sm-center">
+            {{ form.phone_number.label(class="col-sm-2 col-form-label") }}
+            <div class="col-sm-5">
+                {{ form.phone_number(class="form-control") }}
+            </div>
+        </div>
+        <div class="form-group row justify-content-sm-center">
+            {{ form.conf_phone.label(class="col-sm-2 col-form-label") }}
+            <div class="col-sm-5">
+                {{ form.conf_phone(class="form-control") }}
+            </div>
+        </div>
+        <div class="form-group col-md-12 text-center">
+            {{form.submit(class="btn btn-primary")}}
+        </div>
+    </form>
+{% endblock %}

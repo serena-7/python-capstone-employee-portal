@@ -69,7 +69,7 @@ def edit_info(user_id):
             f"Info updated for {user.last_name}. {user.first_name}", "success")
         return redirect(url_for('admin_emp.employee_info', user_id=user.user_id))
 
-    return render_template('edit_info.html', form=form, employee=user)
+    return render_template('admin_edit_info.html', form=form, employee=user)
 
 
 @admin_emp_bp.route('/<user_id>/change_password', methods=['GET', 'POST'])
@@ -85,7 +85,7 @@ def change_password(user_id):
         flash(
             f"Password changed for {user.last_name}, {user.first_name}", "success")
         return redirect(url_for('admin_emp.employees'))
-    return render_template('change_password.html', form=form, employee=user)
+    return render_template('admin_change_password.html', form=form, employee=user)
 
 
 @admin_emp_bp.route('/<user_id>/change_email', methods=['GET', 'POST'])
@@ -102,7 +102,7 @@ def change_email(user_id):
             f"Email changed for {user.last_name}, {user.first_name}", "success")
         return redirect(url_for('admin_emp.employee_info', user_id=user.user_id))
 
-    return render_template('change_email.html', form=form, employee=user)
+    return render_template('admin_change_email.html', form=form, employee=user)
 
 
 @admin_emp_bp.route('/<user_id>/activate')
