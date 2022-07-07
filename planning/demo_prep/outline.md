@@ -3,27 +3,28 @@
 ## Personal Bio
 
 - I'm Serena Sorensen
-- I have a background in chemical engineering and have navigated into software engineering.
+- I have a background in chemical engineering and have navigated into, what I believe to be my calling, software engineering.
 
 ## Project Bio
 
 - This is my capstone project at Devmountain.
 - I chose to create an employee portal for my dad's small business.
-- They currently do time tracking on a google sheet but my dad wanted an application/database for his employees.
+- They currently do time tracking on a google sheet but my dad wanted an application and database for his employees to use.
 - I structured the entrie application to be scalable with blueprints to allow for additional features as I build my dad's company website.
 
 ## Features
 
 #### Software Stack:
 
-- Flask Application in Python
-- PostgreSQL Database
+- This is a Flask Application in Python
+- Using a PostgreSQL Database
 - Boostrap for styling
-- Currently hosted on Heroku
+- and is Currently hosted on Heroku
 
 #### Main Page:
 
-- Basic Homepage
+- This is the Basic Homepage for the entire company site
+- I built out the employee portal portion
 - Link to employee portal
 
 #### Login:
@@ -55,7 +56,7 @@
 
 #### Account:
 
-- The account page let's you change your own user information using the blue buttons and tells you what employee information is saved for your account.
+- The account page shows you your user information and allows you to edit certain info with the blue buttons.
 
 #### Logout:
 
@@ -86,10 +87,12 @@
 
 #### What I learned:
 
+- How to iterate through forms and subforms and dates to make table cells that represent entries into the database
+
 #### Future Plans:
 
-- Host production website and database on AWS
 - Manage Timecards will allow an admin to view each employees timecards.
 - Create reports for payroll
 - Keep track of PTO
-- Full functioning company website for viewers and employees
+- I plann to host the production website and database on AWS
+- to have a full functioning company website for my dad's business
