@@ -33,4 +33,5 @@ app.register_blueprint(admin_timecard_bp, url_prefix="/admin/timecards")
 
 # initialize login manager
 login_manager.init_app(app)
+# must come after blueprints are registered
 login_manager.login_view = "user.login"
